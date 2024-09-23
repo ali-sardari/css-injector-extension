@@ -1,58 +1,87 @@
-// Get references to elements
-const urlInput = document.getElementById("urlInput");
-const urlListDiv = document.getElementById("urlList");
-const addUrlButton = document.getElementById("addUrlButton");
+const urlInput = document.getElementById('urlInput');
+const cssInput = document.getElementById('cssInput');
+const urlListDiv = document.getElementById('urlList');
+const addUrlButton = document.getElementById('addUrlButton');
 
-// Function to render the list of URLs
+// Fetch the current URL when the popup loads
+chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+  urlInput.value = new URL(tabs[0].url).origin; // Get the current site’s origin (domain)
+});
+
+// Function to render the list of URLs and their CSS
 function renderUrlList(urlList) {
-  urlListDiv.innerHTML = ""; // Clear the list
-  urlList.forEach((url, index) => {
-    const div = document.createElement("div");
-    div.className = "url-item";
+  urlListDiv.innerHTML = '';  // Clear the list
+  urlList.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.className = 'url-item';
     div.innerHTML = `
-      ${url}
-      <button data-index="${index}">Remove</button>
+      <strong>${item.url}</strong>
+      <textarea class="css-input">${item.css}</textarea>
+      <button class="save-button" data-index="${index}">Save</button>
+      <button class="remove-button" data-index="${index}">Remove</button>
     `;
     urlListDiv.appendChild(div);
   });
 
-  // Add event listeners to all remove buttons
-  document.querySelectorAll(".url-item button").forEach((button) => {
-    button.addEventListener("click", function () {
-      const index = this.getAttribute("data-index");
+  // Add event listeners to "Save" and "Remove" buttons
+  document.querySelectorAll('.save-button').forEach(button => {
+    button.addEventListener('click', function () {
+      const index = this.getAttribute('data-index');
+      const newCss = this.previousElementSibling.value;
+      updateCss(index, newCss);
+    });
+  });
+
+  document.querySelectorAll('.remove-button').forEach(button => {
+    button.addEventListener('click', function () {
+      const index = this.getAttribute('data-index');
       removeUrl(index);
     });
   });
 }
 
-// Add URL to the list
-addUrlButton.addEventListener("click", function () {
+// Add a website with its custom CSS
+addUrlButton.addEventListener('click', function () {
   const newUrl = urlInput.value.trim();
-  if (newUrl) {
-    chrome.storage.sync.get(["urlList"], function (result) {
+  const newCss = cssInput.value.trim();
+
+  if (newUrl && newCss) {
+    chrome.storage.sync.get(['urlList'], function (result) {
       const urlList = result.urlList || [];
-      urlList.push(newUrl);
+      urlList.push({ url: newUrl, css: newCss });
       chrome.storage.sync.set({ urlList }, function () {
         renderUrlList(urlList);
       });
     });
-    urlInput.value = ""; // Clear the input field
+    urlInput.value = '';  // Clear the input fields
+    cssInput.value = '';
   }
 });
 
-// Remove URL from the list
-function removeUrl(index) {
-  chrome.storage.sync.get(["urlList"], function (result) {
+// Update the CSS for a specific URL
+function updateCss(index, newCss) {
+  chrome.storage.sync.get(['urlList'], function (result) {
     const urlList = result.urlList || [];
-    urlList.splice(index, 1); // Remove the URL at the given index
+    urlList[index].css = newCss;  // Update the CSS
     chrome.storage.sync.set({ urlList }, function () {
       renderUrlList(urlList);
     });
   });
 }
 
-// Initialize the popup by rendering the stored URLs
-chrome.storage.sync.get(["urlList"], function (result) {
+// Remove a URL and its CSS
+function removeUrl(index) {
+  chrome.storage.sync.get(['urlList'], function (result) {
+    const urlList = result.urlList || [];
+    urlList.splice(index, 1);  // Remove the URL and its CSS
+    chrome.storage.sync.set({ urlList }, function () {
+      renderUrlList(urlList);
+    });
+  });
+}
+
+// Initialize the popup by rendering the stored URLs and their CSS
+chrome.storage.sync.get(['urlList'], function (result) {
   const urlList = result.urlList || [];
   renderUrlList(urlList);
 });

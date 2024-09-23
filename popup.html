@@ -2,20 +2,71 @@
 <html>
 <head>
   <style>
-    body { font-family: Arial, sans-serif; padding: 10px; }
-    #urlList { margin-top: 10px; }
-    .url-item { margin-bottom: 5px; }
-    button { margin-left: 5px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+      width: 300px;
+    }
+    #urlInput, .css-input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+    #addUrlButton {
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    #addUrlButton:hover {
+      background-color: #45a049;
+    }
+    .url-item {
+      border-bottom: 1px solid #ddd;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+    }
+    .url-item pre {
+      background-color: #f4f4f4;
+      padding: 10px;
+      font-size: 14px;
+    }
+    .edit-button, .save-button, .remove-button {
+      margin-top: 5px;
+      padding: 5px;
+      font-size: 12px;
+    }
+    .save-button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+    }
+    .remove-button {
+      background-color: #f44336;
+      color: white;
+      border: none;
+    }
   </style>
 </head>
 <body>
-  <h3>Manage URLs</h3>
-  <input type="text" id="urlInput" placeholder="Enter website URL">
-  <button id="addUrlButton">Add URL</button>
+<h3>Manage CSS for Websites</h3>
 
-  <h4>Active Websites</h4>
-  <div id="urlList"></div>
+<label for="urlInput">Website URL:</label>
+<input type="text" id="urlInput" placeholder="Enter website URL">
 
-  <script src="popup.js"></script>
+<label for="cssInput">Custom CSS:</label>
+<textarea id="cssInput" class="css-input" placeholder="Write custom CSS here..."></textarea>
+
+<button id="addUrlButton">Add Website</button>
+
+<h4>Active Websites</h4>
+<div id="urlList"></div>
+
+<script src="popup.js"></script>
 </body>
 </html>
