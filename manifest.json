@@ -1,8 +1,14 @@
 {
   "manifest_version": 3,
-  "name": "Custom CSS for Specific Websites",
+  "name": "CSS Injector",
+  "description": "Adds a custom CSS class to specific websites.",
   "version": "1.0",
   "permissions": ["storage", "tabs", "scripting"],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  },
   "action": {
     "default_popup": "popup.html"
   },
@@ -11,7 +17,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"], 
+      "matches": ["<all_urls>"],
       "js": ["contentScript.js"],
       "run_at": "document_end"
     }

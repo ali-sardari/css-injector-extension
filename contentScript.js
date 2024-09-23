@@ -40,9 +40,13 @@ function injectStyles() {
     body {
       font-family: system-ui !important;
     }
+    * {
+      font-family: system-ui !important;
+    }
     [lang="fa"] {
       font-family: system-ui !important;
       direction: rtl !important;
+      text-align: justify !important;
     }
   `;
   document.head.appendChild(style);
