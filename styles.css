@@ -1,0 +1,8 @@
+body {
+  font-family: system-ui !important;
+}
+
+[lang="fa"] {
+  font-family: system-ui !important;
+  direction: rtl !important;
+}
