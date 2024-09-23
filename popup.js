@@ -17,8 +17,10 @@ function renderUrlList(urlList) {
     div.innerHTML = `
       <strong>${item.url}</strong>
       <textarea class="css-input">${item.css}</textarea>
-      <button class="save-button" data-index="${index}">Save</button>
-      <button class="remove-button" data-index="${index}">Remove</button>
+      <div class="action-buttons">
+        <button class="save-button" data-index="${index}">Save</button>
+        <button class="remove-button" data-index="${index}">Remove</button>
+      </div>
     `;
     urlListDiv.appendChild(div);
   });
@@ -27,7 +29,7 @@ function renderUrlList(urlList) {
   document.querySelectorAll('.save-button').forEach(button => {
     button.addEventListener('click', function () {
       const index = this.getAttribute('data-index');
-      const newCss = this.previousElementSibling.value;
+      const newCss = this.parentNode.previousElementSibling.value;
       updateCss(index, newCss);
     });
   });

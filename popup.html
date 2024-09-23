@@ -1,72 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Injector</title>
   <style>
     body {
-      font-family: Arial, sans-serif;
-      padding: 10px;
-      width: 300px;
+      font-family: 'Roboto', sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f5f5f5;
     }
-    #urlInput, .css-input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      margin-bottom: 10px;
+    h3 {
+      font-size: 1.2rem;
+      color: #333;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+    label {
+      font-weight: 500;
+      margin-bottom: 5px;
+      color: #555;
+    }
+    input, textarea {
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background-color: #fff;
+      font-size: 0.9rem;
       box-sizing: border-box;
     }
+    textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
     #addUrlButton {
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
+      padding: 12px 0;
+      background-color: #007bff;
       color: white;
       border: none;
+      border-radius: 4px;
       cursor: pointer;
-      margin-bottom: 20px;
+      font-size: 1rem;
+      font-weight: bold;
+      text-transform: uppercase;
+      transition: background-color 0.3s ease;
+      width: 100%;
     }
     #addUrlButton:hover {
-      background-color: #45a049;
+      background-color: #0056b3;
+    }
+    #urlList {
+      margin-top: 20px;
     }
     .url-item {
-      border-bottom: 1px solid #ddd;
-      margin-bottom: 15px;
-      padding-bottom: 10px;
-    }
-    .url-item pre {
-      background-color: #f4f4f4;
+      background-color: white;
       padding: 10px;
-      font-size: 14px;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 15px;
     }
-    .edit-button, .save-button, .remove-button {
-      margin-top: 5px;
-      padding: 5px;
-      font-size: 12px;
+    .url-item strong {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 600;
+      color: #007bff;
+    }
+    .url-item textarea {
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+    }
+    .action-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    .action-buttons button {
+      padding: 8px 12px;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.9rem;
     }
     .save-button {
-      background-color: #4CAF50;
+      background-color: #28a745;
       color: white;
-      border: none;
+    }
+    .save-button:hover {
+      background-color: #218838;
     }
     .remove-button {
-      background-color: #f44336;
+      background-color: #dc3545;
       color: white;
-      border: none;
+    }
+    .remove-button:hover {
+      background-color: #c82333;
     }
   </style>
 </head>
 <body>
-<h3>Manage CSS for Websites</h3>
 
-<label for="urlInput">Website URL:</label>
-<input type="text" id="urlInput" placeholder="Enter website URL">
+<h3>Manage Custom CSS</h3>
 
-<label for="cssInput">Custom CSS:</label>
-<textarea id="cssInput" class="css-input" placeholder="Write custom CSS here..."></textarea>
+<div class="input-group">
+  <label for="urlInput">Website URL</label>
+  <input type="text" id="urlInput" placeholder="Enter website URL">
+</div>
+
+<div class="input-group">
+  <label for="cssInput">Custom CSS</label>
+  <textarea id="cssInput" placeholder="Write custom CSS here..."></textarea>
+</div>
 
 <button id="addUrlButton">Add Website</button>
 
-<h4>Active Websites</h4>
 <div id="urlList"></div>
 
 <script src="popup.js"></script>
+
 </body>
 </html>
