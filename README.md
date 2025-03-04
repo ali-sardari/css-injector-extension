@@ -1,6 +1,8 @@
 # CSS Injector Extension
 
 **CSS Injector Extension** allows you to inject custom CSS into specific websites and manage them through a simple UI.
+Edge: 
+https://microsoftedge.microsoft.com/addons/detail/css-injector/ennbjebceagmlgmlhhocgccelpggieme
 
 ## Features
 
